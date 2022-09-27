@@ -1,0 +1,26 @@
+--creating new table
+CREATE TABLE fishing_store (id INTEGER PRIMARY KEY, item TEXT, quantity INTEGER, price INTEGER, aisle INTEGER);
+
+--adding items to the store
+INSERT INTO fishing_store VALUES 
+(1, "lures", 25, 5, 1),
+(2, "rods", 12, 50, 5),
+(3, "waders", 2, 250, 6),
+(4, "fishing line", 100, 3, 2),
+(5, "tackle box", 15, 25, 1),
+(6, "flies", 75, 1, 1),
+(7, "jackets", 15, 150, 7),
+(8, "t-shirts", 30, 20, 9),
+(9, "swim trunks", 30, 24, 9),
+(10, "boats", 3, 10000, 10),
+(11, "sunglasses", 30, 200, 6),
+(12, "hats", 100, 30, 9),
+(13, "nets", 8, 15, 1),
+(15, "life jackets", 25, 50, 10),
+(14, "reels", 15, 25, 1);
+
+--What is the average price per item in the store?
+SELECT AVG(price) FROM fishing_store;
+
+--Which items are the most to least expensive?
+SELECT * FROM fishing_store ORDER BY price desc;
