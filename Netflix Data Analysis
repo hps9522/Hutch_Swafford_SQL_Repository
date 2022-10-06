@@ -1,0 +1,35 @@
+--This code queries from a database of Netflix movies/tv shows, and the director and cast of each show/movie.  
+--Each question is answered by the query below it.
+
+-- 1. How many movies are in the database?
+SELECT 
+COUNT(*)
+FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info"
+WHERE type='movie';
+
+-- 2. When was the oldest batch of tv shows/movies uploaded?
+SELECT
+date_added
+FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info"
+ORDER BY date_added > null
+Limit 1;
+
+-- 3. Show each movie and TV show in alphabetical order.
+SELECT title
+FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info"
+ORDER BY title asc;
+
+-- 4. Who is the director of Bright Star?
+SELECT t.title, p.director 
+FROM "CharlotteChaze/BreakIntoTech"."netflix_people" p
+JOIN "CharlotteChaze/BreakIntoTech"."netflix_titles_info" t
+ON t.show_id = p.show_id
+WHERE t.title = 'Bright Star';
+
+-- 5. What is the oldest movie in the database, and what year was it made?
+SELECT title, MIN(release_year) 
+FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info"
+WHERE type='Movie'
+GROUP BY title, release_year
+ORDER BY release_year asc
+LIMIT 1;
