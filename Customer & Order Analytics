@@ -1,0 +1,39 @@
+#This is a set of SQL queries from a database with multiple tables in it to quantify statistics about customer and order data.
+
+#1. How many orders were placed in January?
+SELECT COUNT(orderID) 
+FROM BIT_DB.JanSales
+
+#2. How many of the January orders were for iPhones?
+SELECT COUNT(orderID)
+FROM BIT_DB.JanSales
+WHERE Product = 'iPhone'
+
+#3. Which account numbers placed orders during the month of February?
+SELECT c.acctnum
+FROM BIT_DB.customers as c
+INNER JOIN BIT_DB.FebSales as f
+ON f.orderID = c.order_id
+
+#4. What was the cheapest product sold in January?
+SELECT distinct product, price 
+FROM BIT_DB.JanSales 
+ORDER BY price ASC LIMIT 1
+
+#5. What was the total revenue per product in January?
+SELECT Product, quantity, quantity*price as revenue 
+FROM BIT_DB.JanSales
+GROUP BY product
+
+#6. Which products were sold at 548 Lincoln St, Seattle, WA 98101 during the month of February, what was the total revenue, and how many of each were sold?
+SELECT Product, quantity, quantity*price as revenue 
+FROM BIT_DB.FebSales
+WHERE location = '548 Lincoln St, Seattle, WA 98101'
+GROUP BY product
+
+#7.How many customers ordered more than two products, and what was the average amount spent per customer?
+SELECT COUNT(cust.acctnum) as "Number of Customers", AVG(quantity*price) as "Average amount spent"
+FROM BIT_DB.FebSales Feb
+LEFT JOIN BIT_DB.customers cust
+ON Feb.orderid=cust.order_id
+WHERE Feb.Quantity>2
