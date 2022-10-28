@@ -43,3 +43,13 @@ SELECT distinct Product, SUM(Quantity)
 FROM BIT_DB.FebSales
 WHERE location LIKE '%Los Angeles%'
 GROUP BY Product
+
+#8.Which locations sold at least 3 products in the month of January?
+SELECT distinct location as store, COUNT(Quantity) as sales
+FROM BIT_DB.JanSales
+WHERE location like '%NY%'
+GROUP BY location
+having COUNT(Quantity) > 2
+ORDER BY sales
+
+
