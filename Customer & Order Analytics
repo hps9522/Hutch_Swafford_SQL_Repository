@@ -52,4 +52,23 @@ GROUP BY location
 having COUNT(Quantity) > 2
 ORDER BY sales
 
+What was the average amount spent per account in February?
+SELECT ROUND(SUM(quantity*price)/COUNT(c.acctnum), 2) as 'Avg $ per Account'
+FROM BIT_DB.FebSales fs
 
+LEFT JOIN BIT_DB.customers c
+ON fs.orderID=c.order_id
+
+What was the avg amount of products bought per acct in February?
+SELECT ROUND(SUM(quantity)/COUNT(c.acctnum), 2) as 'Avg # of products per Acct'
+FROM BIT_DB.FebSales fs
+
+LEFT JOIN BIT_DB.customers c
+ON fs.orderID=c.order_id
+
+Which product brought in the most revenue in January and how much did it bring in?
+SELECT Product, SUM(quantity*price) as 'Product Revenue'
+FROM BIT_DB.JanSales
+GROUP BY Product
+ORDER BY SUM(quantity*price) desc
+Limit 1
